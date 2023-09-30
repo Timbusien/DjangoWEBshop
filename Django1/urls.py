@@ -18,14 +18,18 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import  static
 from Django1 import settings
-from items.views import home
+from items.views import home, Shop_Page, ShopDetail
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home)
+    path('', home),
+    path('shop', Shop_Page.as_view(), name='shop'),
+    path('shop/<int:pk>', ShopDetail.as_view(), name='shop-detail'),
+
 
 ]
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

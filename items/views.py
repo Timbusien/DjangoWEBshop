@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from items.models import ProductModel
+from django.views.generic import TemplateView, ListView, DetailView
+# from django.http import HttpResponse
 # from items.forms import NewForm
 
 # Create your views here
@@ -32,5 +34,25 @@ from django.http import HttpResponse
 def home(request):
     return render(request, 'index.html', {})
 
+
+# def shop(request):
+#     items = ProductModel.objects.all().order_by('-uploaded_at')
+#     return render(request, 'shop.html', {'items': items})
+
+
+# class Shopping_page(TemplateView):
+#     template_name = 'shop.html'
+
+
+class Shop_Page(ListView):
+    template_name = 'shop.html'
+    queryset = ProductModel.objects.all()
+    context_object_name = 'items'
+
+
+class ShopDetail(DetailView):
+    template_name = 'shop-details.html'
+    queryset = ProductModel.objects.all()
+    context_object_name = 'items'
 
 

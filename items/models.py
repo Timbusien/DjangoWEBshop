@@ -17,8 +17,8 @@ class CategoryModel(models.Model):
 class ProductModel(models.Model):
     title = models.CharField(max_length=50)
     price = models.IntegerField(default=0)
-    # category = models.ManyToManyField(CategoryModel, null=True, blank=True)
-    img = models.FileField(null=True, blank=True)
+    category = models.ManyToManyField(CategoryModel, null=True, blank=True)
+    img = models.FileField(upload_to='items')
     description = models.TextField()
     uploaded_at = models.DateTimeField(auto_now_add=True)
 

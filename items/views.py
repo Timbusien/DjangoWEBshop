@@ -50,9 +50,32 @@ class Shop_Page(ListView):
     context_object_name = 'items'
 
 
+    def get_queryset(self):
+        qs = ProductModel.objects.all()
+        q = self.request.GET.get('q')
+
+        if q:
+            qs = qs.filter(title__icontains=q)
+
+        return qs
+
+
 class ShopDetail(DetailView):
     template_name = 'shop-details.html'
     queryset = ProductModel.objects.all()
     context_object_name = 'items'
+
+class RegisterView(TemplateView):
+    template_name = 'signup.html'
+
+
+class LoginView(TemplateView):
+    template_name = 'login.html'
+
+
+class LogoutView(TemplateView):
+    template_name = 'logout.html'
+
+
 
 

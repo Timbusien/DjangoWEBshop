@@ -63,7 +63,7 @@ class Shop_Page(ListView):
 
 @login_required
 def add_to_favorite(request, product_id):
-    product = get_object_or_404(ProductModel, pk=product_id)
+    product = get_object_or_404(ProductModel, id=product_id)
     user = request.user
 
     if product in user.favorite_items.all():

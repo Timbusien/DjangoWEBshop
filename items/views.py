@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
 from items.models import ProductModel
 from django.views.generic import TemplateView, ListView, DetailView
 # from django.http import HttpResponse
@@ -60,6 +61,19 @@ class Shop_Page(ListView):
         return qs
 
 
+@login_required
+def add_to_favorite(request, product_id):
+    product = get_object_or_404(ProductModel, pk=product_id)
+    user = request.user
+
+    if product in user.favorite_items.all():
+        user.favorite_items.remove(product)
+    else:
+        user.favorite_items.add(product)
+
+    return redirect('shop')
+
+
 class ShopDetail(DetailView):
     template_name = 'shop-details.html'
     queryset = ProductModel.objects.all()
@@ -75,6 +89,12 @@ class LoginView(TemplateView):
 
 class LogoutView(TemplateView):
     template_name = 'logout.html'
+
+
+class ProfileView(TemplateView):
+    template_name = 'profile.html'
+
+
 
 
 

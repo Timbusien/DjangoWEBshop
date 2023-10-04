@@ -18,18 +18,21 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import  static
 from Django1 import settings
-from items.views import home, Shop_Page, ShopDetail, LoginView, LogoutView, RegisterView
+from items.views import home, Shop_Page, ShopDetail, LoginView, LogoutView, RegisterView, ProfileView, add_to_favorite
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
     path('shop', Shop_Page.as_view(), name='shop'),
-    path('shop/<int:pk>', ShopDetail.as_view(), name='shop-detail'),
-    path('accounts/', include('allauth.urls')),
-    path('login', LoginView.as_view(), name='login'),
-    path('logout', LogoutView.as_view(), name='logout'),
     path('signup', RegisterView.as_view, name='signup'),
+    path('login', LoginView.as_view(), name='login'),
+    path('accounts/profile', ProfileView.as_view(), name='profile'),
+    path('logout', LogoutView.as_view(), name='logout'),
+    path('shop/<int:pk>', ShopDetail.as_view(), name='shop-detail'),
+    path('add_to_favorite/<int:product_id>/', add_to_favorite, name='add_to_favorite'),
+    path('accounts/', include('allauth.urls')),
+
 
 
 ]

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class CategoryModel(models.Model):
@@ -19,6 +20,7 @@ class ProductModel(models.Model):
     price = models.IntegerField(default=0)
     category = models.ManyToManyField(CategoryModel, null=True, blank=True)
     img = models.FileField(upload_to='items')
+    favorite_by = models.ManyToManyField(User, related_name='favorite_items', blank=True)
     description = models.TextField()
     uploaded_at = models.DateTimeField(auto_now_add=True)
 

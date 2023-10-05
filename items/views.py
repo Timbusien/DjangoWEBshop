@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-from items.models import ProductModel
+from items.models import ProductModel, CategoryModel
 from django.views.generic import TemplateView, ListView, DetailView
 # from django.http import HttpResponse
 # from items.forms import NewForm
@@ -49,7 +49,7 @@ class Shop_Page(ListView):
     template_name = 'shop.html'
     queryset = ProductModel.objects.all()
     context_object_name = 'items'
-
+    paginate_by = 3
 
     def get_queryset(self):
         qs = ProductModel.objects.all()
@@ -59,6 +59,13 @@ class Shop_Page(ListView):
             qs = qs.filter(title__icontains=q)
 
         return qs
+
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = CategoryModel.objects.all()
+
+        return context
 
 
 @login_required

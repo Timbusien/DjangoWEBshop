@@ -231,9 +231,9 @@
                                             <input type="radio" id="pc-6">
                                         </label>
                                     </div>
-                                    <form action="{% url 'add_to_favorite' product.pk %}" method="post">
+                                    <form action="{% url 'add_to_favorite' items.pk %}" method="post">
                                         {% csrf_token %}
-                                        <button type="submit" class="favorite_button">
+                                        <button type="submit" class="favorite-button">
                                             {% if product in request.user.favorite_items.all %}
                                                 Delete from favorites
                                             {% else %}

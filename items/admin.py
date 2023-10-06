@@ -2,6 +2,7 @@ from django.contrib import admin
 from items.models import ProductModel
 from items.models import CategoryModel
 
+
 @admin.register(CategoryModel)
 class CategoryModelAdmin(admin.ModelAdmin):
     list_display = ['title', 'uploaded_at']
